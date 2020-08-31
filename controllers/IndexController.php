@@ -120,7 +120,7 @@ function cteateContent($arg){
 		$content .= '<div class="row h3em" id="task_' . $row['id'] . '">';
 		$content .= '<div class="col">' . $row['user'] . '</div>';
 		$content .= '<div class="col">' . $row['email'] . '</div>';
-		$content .= '<div class="col">' . $row['text'] . '</div>';
+		$content .= '<div class="col">' . htmlspecialchars($row['text']) . '</div>';
 		$content .= '<div class="col">' . $row['status'] . '</div>';
 		$content .= '<div class="col"><button id="editTaskButton_' . $row['id'] .'" type="button" class="btn btn-sm btn-primary ' . (!isset($_SESSION['user'])? 'd-none': '') . '" onclick="editTask(this)">Редактировать</button></div>';
 	$content .= '</div></div>';	
