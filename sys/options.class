@@ -1,0 +1,12 @@
+<?php
+class opt{
+    var $connect=array(
+    	'host'      => dbsrv,
+		'user'      => dbuser,
+		'pass'      => dbpass,
+    );
+
+}
+//Dxz4Jqnw3N3jUQJD
+//'admJSQL',
+?>

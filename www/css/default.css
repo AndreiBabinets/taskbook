@@ -1,0 +1,18 @@
+.headerRow{
+	margin:auto;
+	background-color:#ccc;
+}
+
+.activePage{
+	background-color:#ccf3ff;
+}
+
+.h3em{
+	height:3em;
+}
+
+.navbar {
+margin:0 auto;
+display: inline; /* Важно для центровки */
+text-align: center;
+}
