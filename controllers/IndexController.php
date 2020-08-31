@@ -6,11 +6,6 @@ include_once ModelPrefix . $controllerName . ModelPostfix;
 
 function showAction(){
 	
-	// Определение начальных параметров сессии
-if (!isset($_SESSION['sortedOption'])) {$_SESSION['sortedOption']=1;}
-if (!isset($_SESSION['field'])) {$_SESSION['field']='user';}
-if (!isset($_SESSION['sorting'])) {$_SESSION['sorting']='ASC';}
-if (!isset($_SESSION['page'])) {$_SESSION['page']=1;}
 	
 	$field = $_SESSION['field'];
 	$sorting = $_SESSION['sorting'];
@@ -19,7 +14,7 @@ if (!isset($_SESSION['page'])) {$_SESSION['page']=1;}
 
 	$arg['taskList'] = getTaskList($field, $sorting, $offset);
 	$arg['taskCount'] = getTaskCount();
-	$arg['countPage'] = intdiv($arg['taskCount'], 3) + 1;
+	$arg['countPage'] = (int)($arg['taskCount'] / 3) + 1;
 
 	$_SESSION['countPage'] = $arg['countPage'];
 	

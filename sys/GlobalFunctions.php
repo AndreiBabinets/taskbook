@@ -15,7 +15,7 @@ function d( $value = null, $die = 1){
 }
 
 // Парсинг адресной строки
-function parseUrl(string $strUrl = null, string $explodeChar = '?'): array{
+function parseUrl($strUrl = null, $explodeChar = null): array{
 	$urlData = array();
 	if (!empty($strUrl)) $urlData = explode( $explodeChar, $strUrl);
 	return $urlData;
