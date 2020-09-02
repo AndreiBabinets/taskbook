@@ -55,6 +55,7 @@ function sendData(action, vardata)
  * @return {function} window[action]() - Вызов определенной функции данного скрипта.
  */
 function responseData(resData){
+	
 	if (resData[0]=='<' || resData[1]=='<')	{
 			return 0;
 	} else {
@@ -233,9 +234,9 @@ function editTask(el){
 	$('#editTaskId').val($(row).attr('id').replace('task_',''));
 	$('#editUserName').val($(row).children(':nth-child(1)').text());
 	$('#editUserEmail').val($(row).children(':nth-child(2)').text());
-	$('#editTextTask').val($(row).children(':nth-child(3)').text());
-	$('#editStatus').prop('checked', parseInt($(row).children(':nth-child(4)').text()));
-	
+	$('#editTextTask').val($(row).children(':nth-child(3)').children('.textTask').text().trim());
+	$('#editStatus').prop('checked', parseInt($(row).children(':nth-child(4)').attr('data-status')));
+	$('#editTaskCount').val($(row).children(':nth-child(3)').children('.editCount').attr('data-editcount'));
 	resetEditTaskError();
 	$('#editTaskModal').modal('show');
 }
@@ -243,10 +244,26 @@ function editTask(el){
 function updateTask(){
 	if (!editTaskVerification()) return;
 	var action = "index/updateTask";
-	var vardata = "id="+$('#editTaskId').val()+"&user="+$('#editUserName').val()+"&email="+$('#editUserEmail').val()+"&task="+$('#editTextTask').val() +"&status="+$('#editStatus').prop('checked');;
+	var vardata = "id="+$('#editTaskId').val()+"&user="+$('#editUserName').val()+"&email="+$('#editUserEmail').val()+"&task="+$('#editTextTask').val() +"&status="+$('#editStatus').prop('checked')+"&editCount="+$('#editTaskCount').val();
 	sendData(action,vardata);
 }
 
+function successAddTask(){
+	$('#addTaskModal').modal('hide');
+	$('#successAddModal').modal('show');
+}
+
+function successEditTask(changeList){
+	$('#editTaskModal').modal('hide');
+
+	$('#changesList').html('');
+	$.each(changeList, function(){
+		newLi = $('<li>').text(this);
+		$('#changesList').append(newLi)
+	})
+	
+	$('#successEditModal').modal('show');
+}
 /**
  * Функции обработки сортировки
  */

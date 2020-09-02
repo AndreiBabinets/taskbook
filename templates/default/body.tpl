@@ -7,6 +7,8 @@
  <?php loadTemplate('dialogis','dialog_login'); ?>
  <?php loadTemplate('dialogis','dialog_add_task'); ?>
  <?php loadTemplate('dialogis','dialog_edit_task'); ?>
+ <?php loadTemplate('dialogis','dialog_success_add_task'); ?>
+ <?php loadTemplate('dialogis','dialog_success_edit_task'); ?>
  
 </body>
 </html>

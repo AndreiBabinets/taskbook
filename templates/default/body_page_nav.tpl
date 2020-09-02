@@ -1,4 +1,3 @@
-<hr>
 <div class="col">
 	<div class="row text-center p-2">
 		<span id="countPage" class="d-none"><?php echo $arg['countPage']; ?></span>

@@ -44,7 +44,7 @@ function loadPage($controllerName, $actionName, $arg = null){
 
 // функция загрузки шаблона HTML
 function loadTemplate ($templateDir, $templateName, $arg = null){
-	require_once TemplatePrefix . $templateDir . '/' . $templateName . TemplatePostfix;
+	require TemplatePrefix . $templateDir . '/' . $templateName . TemplatePostfix;
 	
 }
 

@@ -16,3 +16,8 @@ margin:0 auto;
 display: inline; /* Важно для центровки */
 text-align: center;
 }
+
+.editCount{
+	font-size:0.7em;
+	color: #aaa;
+}

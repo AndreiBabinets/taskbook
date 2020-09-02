@@ -29,6 +29,10 @@
 				<input type="checkbox" class="form-check-input" id="editStatus">
 				<label class="form-check-label" for="editStatus">Отметка о выполнении</label>
 			  </div>
+			  <div class="form-group d-none">
+				<label for="editTaskCount">ID</label>
+				<input type="text" class="form-control" id="editTaskCount">
+			  </div>
 		</form>
 		<p id="editTaskError" class="alert-danger"></p>
       </div>

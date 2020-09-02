@@ -122,12 +122,14 @@ function cteateContent($arg){
 		$content .= '<div class="row h3em" id="task_' . $row['id'] . '">';
 		$content .= '<div class="col">' . $row['user'] . '</div>';
 		$content .= '<div class="col">' . $row['email'] . '</div>';
-		$content .= '<div class="col">' . htmlspecialchars($row['text']) . '</div>';
-		$content .= '<div class="col">' . $row['status'] . '</div>';
+		$content .= '<div class="col"><span class="textTask">' . htmlspecialchars($row['text']) . '</span><br />';
+		$content .= '<span class="editCount" data-editCount="'.$row['edit_count'].'">' . ($row['edit_count']>0? 'отредактировано '.$row['edit_count'].' раз(а)': '') .'</span>';
+		$content .= '</div>';
+		$content .= '<div class="col" data-status="' . $row['status'] . '">' . ($row['status']==1? 'Выполнено': '') . '</div>';
 		$content .= '<div class="col"><button id="editTaskButton_' . $row['id'] .'" type="button" class="btn btn-sm btn-primary ' . (!isset($_SESSION['user'])? 'd-none': '') . '" onclick="editTask(this)">Редактировать</button></div>';
-	$content .= '</div></div>';	
+	$content .= '</div></div><hr>';	
 	}
-	
+
 	return $content;
 }
 
@@ -146,8 +148,8 @@ function addTaskAction()
 		return;
 	}
 	
-	createTask(array('user'=>$_POST['user'], 'email'=>$_POST['email'], 'text'=>$_POST['task'], 'status'=>0));
-	returnRes('pageReload');
+	createTask(array('user'=>$_POST['user'], 'email'=>$_POST['email'], 'text'=>$_POST['task'], 'status'=>0, 'edit_count'=>0));
+	returnRes('successAddTask');
 }
 
 function updateTaskAction()
@@ -177,9 +179,19 @@ function updateTaskAction()
 	$_POST['status'] = ($_POST['status']=='true'? 1: 0);
 
 	if (isset($_SESSION['user']) && $_SESSION['user']=='admin') {
-		updateTask($_POST['id'], array('user'=>$_POST['user'], 'email'=>$_POST['email'], 'text'=>$_POST['task'], 'status'=>$_POST['status']));
+		$changeList = array();
+		$task = getTaskById($_POST['id']);
+		
+		if ($task['user']!=$_POST['user']) $changeList[]='Изменено имя пользователя';
+		if ($task['email']!=$_POST['email']) $changeList[]='Изменен email пользователя';
+		if ($task['status']!=$_POST['status']) $changeList[]='Изменен статус задачи';
+		if ($task['text']!=$_POST['task']) {
+			$changeList[]='Изменен тест задачи';
+			$_POST['editCount']++;
+		}
+		updateTask($_POST['id'], array('user'=>$_POST['user'], 'email'=>$_POST['email'], 'text'=>$_POST['task'], 'status'=>$_POST['status'], 'edit_count' =>$_POST['editCount']));
 	}
 	
-	returnRes('pageReload');
+	returnRes('successEditTask',$changeList);
 }
 

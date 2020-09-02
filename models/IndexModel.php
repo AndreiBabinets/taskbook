@@ -4,8 +4,9 @@
 	function getTaskList($orderField, $orderSorting, $offset){
 
 		$db = connetDb();
-		$sql='SELECT * 	FROM `task` ORDER BY `' . $orderField . '` ' . $orderSorting . ' LIMIT 3 OFFSET ' . $offset;
-		$res = $db->query($sql);
+		$sort   = $db->whiteList( $orderSorting, array('ASC','DESC'),'ASC');
+		$sql="SELECT * 	FROM `task` ORDER BY ?n $sort LIMIT 3 OFFSET ?i";
+		$res = $db->query($sql, $orderField, $offset);
 		
 		$tr=array();
 		while($row=mysqli_fetch_assoc($res))		{ 
@@ -13,6 +14,14 @@
 		}
 		
 		return $tr;	
+	}
+	function getTaskById($id){
+
+		$db = connetDb();
+		$sql='SELECT * 	FROM `task` WHERE `id`=?i';
+		$res = $db->getRow($sql, $id);
+		
+		return $res;	
 	}
 	
 	function getTaskCount(){
