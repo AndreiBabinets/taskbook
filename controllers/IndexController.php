@@ -194,4 +194,3 @@ function updateTaskAction()
 	
 	returnRes('successEditTask',$changeList);
 }
-
